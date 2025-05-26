@@ -11,5 +11,14 @@ const getPosts = async (req, res) => {
   res.json(posts);
 };
 
-export { createPost, getPosts };
+const getAllPosts = async (req, res) => {
+  try {
+    const posts = await Post.find().populate("author", "username");
+    res.json(posts);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export { createPost, getPosts, getAllPosts };
 
